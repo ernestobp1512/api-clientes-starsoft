@@ -15,6 +15,9 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Configurar OpenSSL para permitir TLS 1.0/1.1 (Requerido para conectar a SQL Server 2012)
+RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=0/g' /etc/ssl/openssl.cnf
+
 WORKDIR /app
 
 COPY requirements.txt .
